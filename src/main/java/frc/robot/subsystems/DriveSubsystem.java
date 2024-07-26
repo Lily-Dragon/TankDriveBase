@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj.*;
@@ -15,15 +16,23 @@ import frc.robot.Constants;
 
 public class DriveSubsystem extends SubsystemBase {
    // Creating all our variables, we will initialize them and set their values later
-   //create motors : motorcontrolers are talon srx/ talon fx in code : check pheonix 5 docs
+     //create motors : motorcontrolers are talon srx/ talon fx in code : check pheonix 5 docs
+     TalonSRX _talon = new TalonSRX(0);
    //create differential drive or arcade drive : check WPILib docs
+
+  private final TalonSRX m_leftLeader = new TalonSRX(Constants.leftLeaderCANID);
+  private final TalonSRX m_leftFollower = new TalonSRX(Constants.leftFollowerCANID);
+
+  private final TalonSRX m_rightFollower = new TalonSRX(Constants.rightLeaderCANID);
+  private final TalonSRX m_rightLeader = new TalonSRX(Constants.rightFollowerCANID);
   
 
   public DriveSubsystem() {
      //initialize motor controllers
-     
+     m_leftFollower.follow(m_leftLeader);
+     m_rightFollower.follow(m_rightLeader);
      //set to factory defaults
-
+     _talon.configFactoryDefault();
      //set motors to default to braking
      
 
@@ -33,7 +42,7 @@ public class DriveSubsystem extends SubsystemBase {
     
 
     // invert left motors from the right motors because they are inverted 180 degrees
-    
+    m_leftLeader.setInverted(true);
     
     
     

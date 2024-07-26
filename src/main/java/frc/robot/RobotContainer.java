@@ -45,7 +45,7 @@ public class RobotContainer {
   
 
   public DriveSubsystem getDriveSubsystem() {
-    return driveSubsystem;
+    return getDriveSubsystem();
   }
   
   
